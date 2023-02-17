@@ -17,7 +17,7 @@ export const requestApi = (myQuery, myPage) => {
       orientation: 'horizontal',
       safesearch: true,
       page: myPage,
-      per_page: 12,
+      per_page: 4,
     },
   });
 };

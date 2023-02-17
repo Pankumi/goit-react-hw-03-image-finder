@@ -30,7 +30,7 @@ runSearsh = async (searchQuery, page) => {
   console.log('searchQuery >> ', searchQuery, page);
   try {
     const {data} = await requestApi(searchQuery, page);
-    // console.log('try >>', data);
+    console.log('try >>', data);
     this.setState( { images: data.hits })
 
     // runAction(serverResponse);
