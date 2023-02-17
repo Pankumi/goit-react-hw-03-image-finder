@@ -10,64 +10,50 @@ import Notiflix from 'notiflix';
 // Notiflix.Notify.warning('Memento te hominem esse');
 // Notiflix.Notify.info('Cogito ergo sum');
 
-import React, { Component } from 'react';
+import React from 'react';
 // // npm i styled-components
+import { requestApi } from '../services/pixabay';
 import { Searchbar } from './Searchbar/Searchbar';
-// import { ContactList } from './ContactList/ContactList';
-// import { Filter } from './Filter/Filter';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 
 import { Box } from "./Styled";
 
-export class App extends Component {
+export class App extends React.Component {
   state = {
+    images: null,
+    isLoading: false,
+    error: null,
   };
 
+  // // Обробляю відповідь бекенду
+runSearsh = async (searchQuery, page) => {
+  console.log('searchQuery >> ', searchQuery, page);
+  try {
+    const {data} = await requestApi(searchQuery, page);
+    // console.log('try >>', data);
+    this.setState( { images: data.hits })
 
+    // runAction(serverResponse);
+  } catch (err) {
+    console.log('err >> ', err);
+    Notiflix.Notify.failure(
+      'Sorry, ' + err
+    );
+  }
+};
+  
   render() {
-
+    // console.log('render state >> ',this.state );
     // <Searchbar>, <ImageGallery>, <ImageGalleryItem>, <Loader>, <Button> і <Modal>
     return (
       <>
-        <Searchbar />
-
-        {/* <ImageGallery> */}
-        <section class="section">
-          <div class="gallery">
-
-            {/* <ImageGalleryItem> */}
-            <div class="photo-card">
-              <img src="${webformatURL}" alt="${tags}" loading="lazy" />
-              <div class="info">
-                <p class="info-item">
-                  <b>Likes</b>
-                  {/* ${likes} */}
-                </p>
-                <p class="info-item">
-                  <b>Views</b>
-                  {/* ${views} */}
-                </p>
-                <p class="info-item">
-                  <b>Comments</b>
-                  {/* ${comments} */}
-                </p>
-                <p class="info-item">
-                  <b>Downloads</b>
-                  {/* ${downloads} */}
-                </p>
-              </div>
-            </div>
-            {/* </ImageGalleryItem> */}
-
+        <Searchbar runSearsh = {this.runSearsh}/>
+        <ImageGallery imgArr={this.state.images} />
+        {/* <Button> */}
+          <div className="button-box">
+            <button type="button" className="load-more is-hidden">Load more</button>
           </div>
-
-          {/* <Button> */}
-          <div class="button-box">
-            <button type="button" class="load-more is-hidden">Load more</button>
-          </div>
-          {/* </Button> */}
-
-        </section>
-        {/* </ImageGallery> */}
+        {/* </Button> */}
 
         <script src="./js/index.js" type="module"></script>
       </>

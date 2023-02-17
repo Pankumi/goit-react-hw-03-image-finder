@@ -15,8 +15,8 @@ export class Searchbar extends React.Component {
     const value = this.state.search
     
     if(value.length < 2 ) {return};
-    console.log(value.length );
-    // this.props.F(value);
+    // console.log(value.length );
+    this.props.runSearsh(value, 1);
     this.reset();
   }
 
@@ -26,13 +26,12 @@ export class Searchbar extends React.Component {
 
   render() {
     return (
-      <section class="section section__search" onSubmit={this.handleSubmit}>
-        <div class="search-block">
-          <form class="search-form" id="search-form">
+      <section className="section section__search" onSubmit={this.handleSubmit}>
+        <div className="search-block">
+          <form className="search-form" id="search-form">
             <input
               type="text"
               name="search"
-              autocomplete="off"
               placeholder="Search images..."
               value={this.state.search}
               onChange={this.handleChange}
