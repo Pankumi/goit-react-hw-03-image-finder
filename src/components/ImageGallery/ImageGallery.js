@@ -4,18 +4,15 @@ import {ImageGalleryItem} from './ImageGalleryItem/ImageGalleryItem';
 export class ImageGallery extends React.Component {
 
   render() {
-    const {imgArr} = this.props
-    // console.log('render in ImageGallery >> ', imgArr );
-    if(imgArr === null) {
-        return
-    }
+    const {imgList} = this.props
+    // console.log('render in ImageGallery >> ', imgList );
 
     return (
       <section className="section">
         <div className="gallery">
-            {imgArr.map( imgItems => {
+            {imgList.map( (imgItems, idx) => {
                 // console.log('map in ImageGallery >> ', imgItems );
-                return <ImageGalleryItem imgItems={imgItems}/>
+                return <ImageGalleryItem key={idx} imgItems={imgItems}/>
             })}
 
         </div>
