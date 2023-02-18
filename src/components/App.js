@@ -17,7 +17,6 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 
-
 import { Box } from './Styled';
 
 export class App extends React.Component {
@@ -26,6 +25,7 @@ export class App extends React.Component {
     isLoading: false,
     error: null,
     imgOnPage: 12,
+    searchQuery: null,
     totalImg: null,
     pageNum: null,
   };
@@ -41,9 +41,10 @@ export class App extends React.Component {
       );
       console.log('try >>', data);
       this.setState({
+        searchQuery: searchQuery,
+        pageNum: pageNum,
         imgList: data.hits,
         totalImg: data.totalHits,
-        pageNum: pageNum,
       });
 
       // runAction(serverResponse);
@@ -56,12 +57,18 @@ export class App extends React.Component {
   render() {
     // console.log('render state >> ',this.state );
     // <Searchbar>, <ImageGallery>, <ImageGalleryItem>, <Loader>, <Button> і <Modal>
-    const { imgList, imgOnPage, pageNum, totalImg } = this.state;
+    const { imgList, imgOnPage, searchQuery, totalImg, pageNum } = this.state;
     return (
       <>
         <Searchbar runSearsh={this.runSearsh} />
-        {imgList && <ImageGallery imgList={this.state.imgList} />}
-        {imgOnPage * pageNum < totalImg && <Button />}
+        {imgList && <ImageGallery imgList={imgList} />}
+        {imgOnPage * pageNum < totalImg && (
+          <Button
+            fRunSearsh={this.runSearsh}
+            stateSearchQuery={searchQuery}
+            statePageNum={pageNum}
+          />
+        )}
 
         <script src="./js/index.js" type="module"></script>
       </>
