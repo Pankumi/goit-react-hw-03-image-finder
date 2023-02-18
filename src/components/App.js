@@ -1,10 +1,10 @@
 // // Для HTTP-запитів використана бібліотека axios.
 // // npm install axios
-import axios from 'axios';
+// import axios from 'axios';
 
 // // Підключаю notiflix сповіщєння https://github.com/notiflix/Notiflix#readme
 // // npm i notiflix
-import Notiflix from 'notiflix';
+// import Notiflix from 'notiflix';
 // Notiflix.Notify.success('Sol lucet omnibus');
 // Notiflix.Notify.failure('Qui timide rogat docet negare');
 // Notiflix.Notify.warning('Memento te hominem esse');
@@ -12,12 +12,13 @@ import Notiflix from 'notiflix';
 
 import React from 'react';
 // // npm i styled-components
-import { requestApi } from '../services/pixabay';
+import { requestImg } from '../services/pixabay';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
-
-import { Box } from './Styled';
+import { Loader } from './Loader/Loader';
+import { Modal } from './Modal/Modal';
+// import { Box } from './Styled';
 
 export class App extends React.Component {
   state = {
@@ -28,17 +29,21 @@ export class App extends React.Component {
     searchQuery: null,
     totalImg: null,
     pageNum: null,
+    selectedImg: null,
   };
 
-  // // Обробляю відповідь бекенду
+  handleClick = selectedImg => {
+    this.setState({ selectedImg: selectedImg });
+    // console.log('URL >>', selectedImg);
+  };
+
+  // largeImageURL
+
   runSearsh = async (searchQuery, pageNum) => {
     // console.log('searchQuery >> ', searchQuery, pageNum);
+    this.setState({ isLoading: true });
     try {
-      const { data } = await requestApi(
-        this.state.imgOnPage,
-        searchQuery,
-        pageNum
-      );
+      const data = await requestImg(this.state.imgOnPage, searchQuery, pageNum);
       console.log('try >>', data);
       this.setState({
         searchQuery: searchQuery,
@@ -50,19 +55,44 @@ export class App extends React.Component {
       // runAction(serverResponse);
     } catch (err) {
       console.log('err >> ', err);
-      Notiflix.Notify.failure('Sorry, ' + err);
+      // Notiflix.Notify.failure('Sorry, ' + err);
+      this.setState({
+        error: err.message,
+      });
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
   render() {
-    // console.log('render state >> ',this.state );
-    // <Searchbar>, <ImageGallery>, <ImageGalleryItem>, <Loader>, <Button> і <Modal>
-    const { imgList, imgOnPage, searchQuery, totalImg, pageNum } = this.state;
+    console.log('render state >> ', this.state);
+    const {
+      imgList,
+      isLoading,
+      error,
+      imgOnPage,
+      searchQuery,
+      totalImg,
+      pageNum,
+      selectedImg,
+    } = this.state;
+    const switchButton = imgOnPage * pageNum < totalImg;
     return (
       <>
         <Searchbar runSearsh={this.runSearsh} />
-        {imgList && <ImageGallery imgList={imgList} />}
-        {imgOnPage * pageNum < totalImg && (
+        {isLoading && <Loader />}
+        {totalImg === 0 && (
+          <p>
+            Sorry, there are no images matching your search query. Please try
+            again.
+          </p>
+        )}
+        {error && <p>Oops, some arror occured... Massage: {error}</p>}
+
+        {imgList && (
+          <ImageGallery imgList={imgList} handleClick={this.handleClick} />
+        )}
+        {switchButton && (
           <Button
             fRunSearsh={this.runSearsh}
             stateSearchQuery={searchQuery}
@@ -70,7 +100,7 @@ export class App extends React.Component {
           />
         )}
 
-        <script src="./js/index.js" type="module"></script>
+        {selectedImg !== null && <Modal selectedImg={selectedImg} />}
       </>
     );
   }

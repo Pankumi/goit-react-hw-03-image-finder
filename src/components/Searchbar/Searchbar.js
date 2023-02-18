@@ -26,20 +26,26 @@ export class Searchbar extends React.Component {
 
   render() {
     return (
-      <section className="section section__search" onSubmit={this.handleSubmit}>
-        <div className="search-block">
-          <form className="search-form" id="search-form">
-            <input
-              type="text"
-              name="search"
-              placeholder="Search images..."
-              value={this.state.search}
-              onChange={this.handleChange}
-            />
-            <button type="submit" >Search</button>
-          </form>
-        </div>
-      </section>
+
+      <header className="searchbar">
+        <form className="form" onSubmit={this.handleSubmit}>
+
+          <button type="submit" className="button">
+            <span className="button-label">Search</span>
+          </button>
+
+          <input
+            className="input"
+            type="text"
+            // autocomplete="off"
+            // autofocus
+            placeholder="Search images and photos"
+            name="search"
+            value={this.state.search}
+            onChange={this.handleChange}
+          />
+        </form>
+      </header>
     );
   }
 }

@@ -8,8 +8,8 @@ const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '32925042-7db54cf1dcb8f5ff60841ad32';
 
 // Ф для запросу при ноому пошуку
-export const requestApi = (onPage, myQuery, myPage) => {
-  return axios.get(`${BASE_URL}`, {
+export const requestImg = async (onPage, myQuery, myPage) => {
+  const { data } = await axios.get(`${BASE_URL}`, {
     params: {
       key: API_KEY,
       q: myQuery,
@@ -20,4 +20,5 @@ export const requestApi = (onPage, myQuery, myPage) => {
       per_page: onPage,
     },
   });
+  return data;
 };

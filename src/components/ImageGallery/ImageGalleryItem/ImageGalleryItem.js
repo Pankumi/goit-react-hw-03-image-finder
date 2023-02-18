@@ -2,11 +2,11 @@ import React from 'react';
 
 export class ImageGalleryItem extends React.Component {
   render() {
-    const {webformatURL, largeImageURL, tags, likes, views, comments, downloads} = this.props.imgItems;
+    const {webformatURL, tags, likes, views, comments, downloads} = this.props.imgItems;
     // console.log('props ImageGalleryItem >> ', this.props);
 
     return (
-      <div className="photo-card">
+      <div className="photo-card"  onClick={ () =>this.props.handleClick(this.props.imgItems) }>
         <img src={webformatURL} alt={tags} loading="lazy" />
         <div className="info">
           <p className="info-item">

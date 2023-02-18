@@ -9,7 +9,7 @@ export class Button extends React.Component {
   }
 
   render() {
-    console.log('Button props >>', this.props);
+    // console.log('Button props >>', this.props);
     return (
       <div className="button-box">
         <button
