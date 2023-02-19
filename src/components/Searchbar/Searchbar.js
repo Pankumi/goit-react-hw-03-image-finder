@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from './Styled';
 
 export class Searchbar extends React.Component {
   state = {
@@ -27,7 +28,7 @@ export class Searchbar extends React.Component {
   render() {
     return (
 
-      <header className="searchbar">
+      <Box>
         <form className="form" onSubmit={this.handleSubmit}>
 
           <button type="submit" className="button">
@@ -45,7 +46,7 @@ export class Searchbar extends React.Component {
             onChange={this.handleChange}
           />
         </form>
-      </header>
+      </Box>
     );
   }
 }

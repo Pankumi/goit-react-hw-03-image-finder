@@ -11,14 +11,16 @@
 // Notiflix.Notify.info('Cogito ergo sum');
 
 import React from 'react';
-// // npm i styled-components
+// COMPONENTS:
 import { requestImg } from '../services/pixabay';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
 import { Modal } from './Modal/Modal';
-// import { Box } from './Styled';
+
+// // npm i styled-components
+import { Box } from './Styled';
 
 export class App extends React.Component {
   state = {
@@ -78,20 +80,24 @@ export class App extends React.Component {
     } = this.state;
     const switchButton = imgOnPage * pageNum < totalImg;
     return (
-      <>
+      <Box>
         <Searchbar runSearsh={this.runSearsh} />
+
         {isLoading && <Loader />}
+
         {totalImg === 0 && (
           <p>
             Sorry, there are no images matching your search query. Please try
             again.
           </p>
         )}
+
         {error && <p>Oops, some arror occured... Massage: {error}</p>}
 
         {imgList && (
           <ImageGallery imgList={imgList} handleClick={this.handleClick} />
         )}
+
         {switchButton && (
           <Button
             fRunSearsh={this.runSearsh}
@@ -101,7 +107,7 @@ export class App extends React.Component {
         )}
 
         {selectedImg !== null && <Modal selectedImg={selectedImg} />}
-      </>
+      </Box>
     );
   }
 }
