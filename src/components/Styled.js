@@ -6,3 +6,7 @@ export const Box = styled.div`
     grid-gap: 16px;
     padding-bottom: 24px;
 `;
+
+export const Warning = styled.p`
+    padding-left: 30px;
+`;

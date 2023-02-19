@@ -20,7 +20,7 @@ import { Loader } from './Loader/Loader';
 import { Modal } from './Modal/Modal';
 
 // // npm i styled-components
-import { Box } from './Styled';
+import { Box, Warning } from './Styled';
 
 export class App extends React.Component {
   state = {
@@ -35,7 +35,7 @@ export class App extends React.Component {
   };
 
   componentDidUpdate(_, prevState) {
-    const { searchQuery, pageNum, error } = this.state;
+    const { searchQuery, pageNum} = this.state;
     if (
       prevState.searchQuery !== searchQuery ||
       prevState.pageNum !== pageNum
@@ -106,10 +106,10 @@ export class App extends React.Component {
         {isLoading && <Loader />}
 
         {totalImg === 0 && (
-          <p>
+          <Warning>
             Sorry, there are no images matching your search query. Please try
             again.
-          </p>
+          </Warning>
         )}
 
         {error && <p>Oops, some arror occured... Massage: {error}</p>}

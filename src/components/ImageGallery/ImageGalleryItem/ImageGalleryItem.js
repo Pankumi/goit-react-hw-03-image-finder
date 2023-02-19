@@ -3,7 +3,7 @@ import css from './ImageGalleryItem.modul.css';
 
 export class ImageGalleryItem extends React.Component {
   render() {
-    const {webformatURL, tags, likes, views, comments, downloads} = this.props.imgItems;
+    const {webformatURL, tags} = this.props.imgItems;
     // console.log('props ImageGalleryItem >> ', this.props);
 
     return (
