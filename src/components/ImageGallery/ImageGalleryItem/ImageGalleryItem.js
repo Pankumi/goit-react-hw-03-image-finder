@@ -9,7 +9,7 @@ export class ImageGalleryItem extends React.Component {
     return (
       <li 
       className={css.ImageGalleryItem}
-      onClick={ () =>this.props.handleClick(this.props.imgItems) }>
+      onClick={ () =>this.props.modalSwitch(this.props.imgItems) }>
         <img
         className={css.ImageGalleryItemImage}
         src={webformatURL} alt={tags} loading="lazy" />

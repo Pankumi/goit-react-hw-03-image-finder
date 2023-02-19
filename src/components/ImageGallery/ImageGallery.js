@@ -5,7 +5,7 @@ import css from './ImageGallery.module.css';
 export class ImageGallery extends React.Component {
 
   render() {
-    const { imgList, handleClick } = this.props;
+    const { imgList, modalSwitch } = this.props;
     // console.log('render in ImageGallery >> ', imgList );
 
     return (
@@ -16,7 +16,7 @@ export class ImageGallery extends React.Component {
               <ImageGalleryItem
                 key={imgItems.id}
                 imgItems={imgItems}
-                handleClick={handleClick}
+                modalSwitch={modalSwitch}
               />
             );
           })}

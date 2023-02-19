@@ -24,7 +24,7 @@ import { Box } from './Styled';
 
 export class App extends React.Component {
   state = {
-    imgList: null,
+    imgList: [],
     isLoading: false,
     error: null,
     imgOnPage: 12,
@@ -34,25 +34,49 @@ export class App extends React.Component {
     selectedImg: null,
   };
 
-  handleClick = selectedImg => {
+  componentDidUpdate(_, prevState) {
+    const { searchQuery, pageNum, error } = this.state;
+    if (
+      prevState.searchQuery !== searchQuery ||
+      prevState.pageNum !== pageNum
+    ) {
+      this.runRequest();
+    }
+
+    // if (prevState.error !== error && error) {
+    //   toast.error(error);
+    // }
+  }
+
+  newSearch = value => {
+    // console.log('newSearch >>', value);
+    this.setState({ searchQuery: value, pageNum: 1 });
+  };
+
+  nextPage = () => {
+    this.setState({ pageNum: this.state.pageNum + 1 });
+  };
+
+  modalSwitch = (selectedImg = null) => {
     this.setState({ selectedImg: selectedImg });
     // console.log('URL >>', selectedImg);
   };
 
-  // largeImageURL
-
-  runSearsh = async (searchQuery, pageNum) => {
-    // console.log('searchQuery >> ', searchQuery, pageNum);
+  runRequest = async () => {
     this.setState({ isLoading: true });
+
+    const {imgOnPage, searchQuery, pageNum} = this.state
+    // console.log('runRequest >> ', this.state);
     try {
-      const data = await requestImg(this.state.imgOnPage, searchQuery, pageNum);
-      console.log('try >>', data);
-      this.setState({
+      const data = await requestImg(imgOnPage, searchQuery, pageNum);
+      // console.log('try >>', data);
+
+      this.setState(prevState => ({
         searchQuery: searchQuery,
         pageNum: pageNum,
-        imgList: data.hits,
+        imgList: [...prevState.imgList, ...data.hits],
         totalImg: data.totalHits,
-      });
+      }));
 
       // runAction(serverResponse);
     } catch (err) {
@@ -73,7 +97,6 @@ export class App extends React.Component {
       isLoading,
       error,
       imgOnPage,
-      searchQuery,
       totalImg,
       pageNum,
       selectedImg,
@@ -81,7 +104,7 @@ export class App extends React.Component {
     const switchButton = imgOnPage * pageNum < totalImg;
     return (
       <Box>
-        <Searchbar runSearsh={this.runSearsh} />
+        <Searchbar newSearch={this.newSearch} />
 
         {isLoading && <Loader />}
 
@@ -95,18 +118,14 @@ export class App extends React.Component {
         {error && <p>Oops, some arror occured... Massage: {error}</p>}
 
         {imgList && (
-          <ImageGallery imgList={imgList} handleClick={this.handleClick} />
+          <ImageGallery imgList={imgList} modalSwitch={this.modalSwitch} />
         )}
 
-        {switchButton && (
-          <Button
-            fRunSearsh={this.runSearsh}
-            stateSearchQuery={searchQuery}
-            statePageNum={pageNum}
-          />
-        )}
+        {switchButton && <Button nextPage={this.nextPage} />}
 
-        {selectedImg && <Modal selectedImg={selectedImg} />}
+        {selectedImg && (
+          <Modal selectedImg={selectedImg} modalSwitch={this.modalSwitch} />
+        )}
       </Box>
     );
   }
