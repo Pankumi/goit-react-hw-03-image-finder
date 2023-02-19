@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box } from './Styled';
+// npm i react-icons
+import { FiSearch } from 'react-icons/fi';
+import css from './Searchbar.module.css';
 
 export class Searchbar extends React.Component {
   state = {
@@ -28,15 +30,15 @@ export class Searchbar extends React.Component {
   render() {
     return (
 
-      <Box>
-        <form className="form" onSubmit={this.handleSubmit}>
+      <section className={css.SearchBar}>
+        <form className={css.SearchForm} onSubmit={this.handleSubmit}>
 
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
+          <button className={css.SearchForm_button} type="submit" >
+              <FiSearch size="20px" />
           </button>
 
           <input
-            className="input"
+            className={css.SearchForm_input}
             type="text"
             // autocomplete="off"
             // autofocus
@@ -46,7 +48,7 @@ export class Searchbar extends React.Component {
             onChange={this.handleChange}
           />
         </form>
-      </Box>
+      </section>
     );
   }
 }

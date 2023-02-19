@@ -1,4 +1,5 @@
 import React from 'react';
+import css from './Button.modal.css';
 
 export class Button extends React.Component {
 
@@ -11,15 +12,13 @@ export class Button extends React.Component {
   render() {
     // console.log('Button props >>', this.props);
     return (
-      <div className="button-box">
         <button
-          type="button"
-          className="load-more is-hidden"
-          onClick={this.handleClick}
+        className={css.Button}
+        type="button"
+        onClick={this.handleClick}
         >
           Load more
         </button>
-      </div>
     );
   }
 }

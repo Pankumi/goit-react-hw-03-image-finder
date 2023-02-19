@@ -1,5 +1,6 @@
 import React from 'react';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import css from './ImageGallery.module.css';
 
 export class ImageGallery extends React.Component {
 
@@ -8,20 +9,18 @@ export class ImageGallery extends React.Component {
     // console.log('render in ImageGallery >> ', imgList );
 
     return (
-      <section className="section" >
-        <div className="gallery" >
-          {imgList.map((imgItems, idx) => {
+        <ul className={css.ImageGallery} >
+          {imgList.map( imgItems=>{
             // console.log('map in ImageGallery >> ', imgItems );
             return (
               <ImageGalleryItem
-                key={idx}
+                key={imgItems.id}
                 imgItems={imgItems}
                 handleClick={handleClick}
               />
             );
           })}
-        </div>
-      </section>
+        </ul>
     );
   }
 }

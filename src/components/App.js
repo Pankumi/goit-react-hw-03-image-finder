@@ -106,7 +106,7 @@ export class App extends React.Component {
           />
         )}
 
-        {selectedImg !== null && <Modal selectedImg={selectedImg} />}
+        {selectedImg && <Modal selectedImg={selectedImg} />}
       </Box>
     );
   }
