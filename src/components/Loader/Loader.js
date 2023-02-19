@@ -1,9 +1,12 @@
-import React from 'react'
-import { StyledLoader } from './Styled'
+import React from 'react';
+import { StyledLoader } from './Styled';
+import css from './Loader.module.css';
 
 export function Loader() {
   return (
-    <StyledLoader><div></div></StyledLoader>
+    <div className={css.Box}>
+      <StyledLoader><div></div></StyledLoader>
+    </div>
   )
 }
 

@@ -42,15 +42,11 @@ export class App extends React.Component {
     ) {
       this.runRequest();
     }
-
-    // if (prevState.error !== error && error) {
-    //   toast.error(error);
-    // }
   }
 
   newSearch = value => {
     // console.log('newSearch >>', value);
-    this.setState({ searchQuery: value, pageNum: 1 });
+    this.setState({ imgList: [], searchQuery: value, pageNum: 1 });
   };
 
   nextPage = () => {
@@ -76,6 +72,7 @@ export class App extends React.Component {
         pageNum: pageNum,
         imgList: [...prevState.imgList, ...data.hits],
         totalImg: data.totalHits,
+        error: null,
       }));
 
       // runAction(serverResponse);
