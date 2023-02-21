@@ -48,7 +48,6 @@ export class App extends React.Component {
     this.setState({ imgList: [], searchQuery: value, pageNum: 1 });
   };
 
-  // Мені потрібне актуальне значення State з актуаьним номером сторінки щоб збільшити його на 1. Незрозуміло чому треба використовувати попередній prevState ?
   nextPage = () => {
     this.setState(prevState => ({ pageNum: prevState.pageNum + 1 }));
   };
