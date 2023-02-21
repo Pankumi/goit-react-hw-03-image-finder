@@ -40,8 +40,8 @@ export class Searchbar extends React.Component {
           <input
             className={css.SearchForm_input}
             type="text"
-            autoComplete="off"
-            autoFocus
+            // autocomplete="off"
+            // autofocus
             placeholder="Search images and photos"
             name="search"
             value={this.state.search}
