@@ -6,12 +6,10 @@ export class ImageGallery extends React.Component {
 
   render() {
     const { imgList, modalSwitch } = this.props;
-    // console.log('render in ImageGallery >> ', imgList );
 
     return (
         <ul className={css.ImageGallery} >
           {imgList.map( imgItems=>{
-            console.log('map in ImageGallery >> ', imgItems );
             return (
               <ImageGalleryItem
                 key={imgItems.id}

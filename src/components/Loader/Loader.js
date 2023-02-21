@@ -9,5 +9,3 @@ export function Loader() {
     </div>
   )
 }
-
-// class="lds-heart"

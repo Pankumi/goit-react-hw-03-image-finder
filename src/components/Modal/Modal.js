@@ -12,7 +12,6 @@ export class Modal extends Component {
   };
 
   handleEvent = evt => {
-      // console.log('keydown >>', evt.code );
       if( evt.code === 'Escape') {
         this.props.modalSwitch()
       }

@@ -18,7 +18,6 @@ export class Searchbar extends React.Component {
     const value = this.state.search
     
     if(value.length < 1 ) {return};
-    // console.log(value.length );
     this.props.newSearch(value);
     this.reset();
   }

@@ -45,7 +45,6 @@ export class App extends React.Component {
   }
 
   newSearch = value => {
-    // console.log('newSearch >>', value);
     this.setState({ imgList: [], searchQuery: value, pageNum: 1 });
   };
 
@@ -55,17 +54,14 @@ export class App extends React.Component {
 
   modalSwitch = (selectedImg = null) => {
     this.setState({ selectedImg: selectedImg });
-    // console.log('URL >>', selectedImg);
   };
 
   runRequest = async () => {
     this.setState({ isLoading: true });
 
     const { imgOnPage, searchQuery, pageNum } = this.state
-    // console.log('runRequest >> ', this.state);
     try {
       const data = await requestImg(imgOnPage, searchQuery, pageNum);
-      // console.log('try >>', data);
 
       this.setState(prevState => ({
         imgList: [...prevState.imgList, ...data.hits],
@@ -73,7 +69,6 @@ export class App extends React.Component {
         // error: null,
       }));
 
-      // runAction(serverResponse);
     } catch (err) {
       console.log('err >> ', err);
       Notiflix.Notify.failure('Sorry, ' + err);
@@ -86,7 +81,6 @@ export class App extends React.Component {
   };
 
   render() {
-    // console.log('render state >> ', this.state);
     const {
       imgList,
       isLoading,
