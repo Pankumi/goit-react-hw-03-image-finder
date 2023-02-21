@@ -11,7 +11,7 @@ export class ImageGallery extends React.Component {
     return (
         <ul className={css.ImageGallery} >
           {imgList.map( imgItems=>{
-            // console.log('map in ImageGallery >> ', imgItems );
+            console.log('map in ImageGallery >> ', imgItems );
             return (
               <ImageGalleryItem
                 key={imgItems.id}

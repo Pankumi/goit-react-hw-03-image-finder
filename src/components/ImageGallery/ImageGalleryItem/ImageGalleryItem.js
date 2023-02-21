@@ -1,37 +1,20 @@
 import React from 'react';
 import css from './ImageGalleryItem.modul.css';
 
-export class ImageGalleryItem extends React.Component {
-  render() {
-    const {webformatURL, tags} = this.props.imgItems;
-    // console.log('props ImageGalleryItem >> ', this.props);
-
-    return (
-      <li 
+export const ImageGalleryItem = ({ modalSwitch, imgItems  }) => {
+  // console.log('modalSwitch >>', modalSwitch);
+  // console.log('imgItems >>', imgItems);
+  return (
+    <li
       className={css.ImageGalleryItem}
-      onClick={ () =>this.props.modalSwitch(this.props.imgItems) }>
-        <img
+      onClick={() => modalSwitch(imgItems)}
+    >
+      <img
         className={css.ImageGalleryItemImage}
-        src={webformatURL} alt={tags} loading="lazy" />
-        {/* <div className="info">
-          <p className="info-item">
-            <b>Likes</b>
-            {likes}
-          </p>
-          <p className="info-item">
-            <b>Views</b>
-            {views}
-          </p>
-          <p className="info-item">
-            <b>Comments</b>
-            {comments}
-          </p>
-          <p className="info-item">
-            <b>Downloads</b>
-            {downloads}
-          </p>
-        </div> */}
-      </li>
-    );
-  }
-}
+        src={imgItems.webformatURL}
+        alt={imgItems.tags}
+        loading="lazy"
+      />
+    </li>
+  );
+};

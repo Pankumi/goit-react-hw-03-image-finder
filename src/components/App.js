@@ -4,7 +4,7 @@
 
 // // Підключаю notiflix сповіщєння https://github.com/notiflix/Notiflix#readme
 // // npm i notiflix
-// import Notiflix from 'notiflix';
+import Notiflix from 'notiflix';
 // Notiflix.Notify.success('Sol lucet omnibus');
 // Notiflix.Notify.failure('Qui timide rogat docet negare');
 // Notiflix.Notify.warning('Memento te hominem esse');
@@ -35,7 +35,7 @@ export class App extends React.Component {
   };
 
   componentDidUpdate(_, prevState) {
-    const { searchQuery, pageNum} = this.state;
+    const { searchQuery, pageNum } = this.state;
     if (
       prevState.searchQuery !== searchQuery ||
       prevState.pageNum !== pageNum
@@ -50,7 +50,7 @@ export class App extends React.Component {
   };
 
   nextPage = () => {
-    this.setState({ pageNum: this.state.pageNum + 1 });
+    this.setState(prevState => ({ pageNum: prevState.pageNum + 1 }));
   };
 
   modalSwitch = (selectedImg = null) => {
@@ -61,24 +61,22 @@ export class App extends React.Component {
   runRequest = async () => {
     this.setState({ isLoading: true });
 
-    const {imgOnPage, searchQuery, pageNum} = this.state
+    const { imgOnPage, searchQuery, pageNum } = this.state
     // console.log('runRequest >> ', this.state);
     try {
       const data = await requestImg(imgOnPage, searchQuery, pageNum);
       // console.log('try >>', data);
 
       this.setState(prevState => ({
-        searchQuery: searchQuery,
-        pageNum: pageNum,
         imgList: [...prevState.imgList, ...data.hits],
         totalImg: data.totalHits,
-        error: null,
+        // error: null,
       }));
 
       // runAction(serverResponse);
     } catch (err) {
       console.log('err >> ', err);
-      // Notiflix.Notify.failure('Sorry, ' + err);
+      Notiflix.Notify.failure('Sorry, ' + err);
       this.setState({
         error: err.message,
       });
@@ -88,7 +86,7 @@ export class App extends React.Component {
   };
 
   render() {
-    console.log('render state >> ', this.state);
+    // console.log('render state >> ', this.state);
     const {
       imgList,
       isLoading,
