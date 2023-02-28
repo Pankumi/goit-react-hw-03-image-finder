@@ -45,7 +45,14 @@ export class App extends React.Component {
   }
 
   newSearch = value => {
-    this.setState({ imgList: [], searchQuery: value, pageNum: 1 });
+    this.setState({
+      error: null,
+      totalImg: null,
+      selectedImg: null,
+      imgList: [],
+      searchQuery: value,
+      pageNum: 1,
+    });
   };
 
   nextPage = () => {
@@ -59,16 +66,14 @@ export class App extends React.Component {
   runRequest = async () => {
     this.setState({ isLoading: true });
 
-    const { imgOnPage, searchQuery, pageNum } = this.state
+    const { imgOnPage, searchQuery, pageNum } = this.state;
     try {
       const data = await requestImg(imgOnPage, searchQuery, pageNum);
 
       this.setState(prevState => ({
         imgList: [...prevState.imgList, ...data.hits],
         totalImg: data.totalHits,
-        // error: null,
       }));
-
     } catch (err) {
       console.log('err >> ', err);
       Notiflix.Notify.failure('Sorry, ' + err);
